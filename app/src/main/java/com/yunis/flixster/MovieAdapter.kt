@@ -10,15 +10,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import android.content.Intent
 
-private val TAG = "MovieAdapter"
-class MovieAdapter(private val context: Context, private val movies: List<Movie>)
-    : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+private const val TAG = "MovieAdapter"
+
+class MovieAdapter(private val context: Context, private val movies: List<Movie>) :
+    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+    companion object {
+        const val ITEM_TITLE = "item_title"
+        const val ITEM_POSTER = "item_poster"
+        const val ITEM_POSTER2 = "item_poster2"
+        const val ITEM_OVERVIEW = "item_over_view"
+        const val RB = "rb"
+    }
 
     //Expensive operation: create a view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.i(TAG, "onCreateViewHolder")
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,14 +43,14 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
     override fun getItemCount() = movies.size
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverView = itemView.findViewById<TextView>(R.id.tvOverView)
 
 
-        fun bind(movie: Movie){
+        fun bind(movie: Movie) {
             tvTitle.text = movie.title
             tvOverView.text = movie.overview
 
@@ -58,10 +67,34 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
                     .placeholder(R.drawable.flicks_movie_placeholder)
                     .into(ivPoster);
             }
-        }
 
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                // check position is valid
+                if (position != RecyclerView.NO_POSITION) {
+                    val movie: Movie = movies[position]
+                    val intent = Intent(context, MovieDetailsActivity::class.java)
+                    intent.putExtra(
+                        ITEM_TITLE, movie.title
+                    )
+                    intent.putExtra(
+                        ITEM_POSTER, movie.posterImageUrl
+                    )
+                    intent.putExtra(
+                        ITEM_POSTER2, movie.posterImageUrl2
+                    )
+                    intent.putExtra(
+                        ITEM_OVERVIEW, movie.overview
+                    )
+                    intent.putExtra(
+                        RB, movie.voteAverage
+                    )
 
+                    context.startActivity(intent)
+                }
+            }
         }
     }
+}
 
 
