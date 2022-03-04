@@ -26,7 +26,7 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             }
             MOVIE_DETAIL -> {
                 view = inflater.inflate(R.layout.item_movie, parent, false)
-                return ViewHolder1(view)
+                return ViewHolder2(view)
             }
             else -> {
                 view = inflater.inflate(R.layout.item_movie, parent, false)
@@ -74,6 +74,7 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverView = itemView.findViewById<TextView>(R.id.tvOverView)
+
         fun bind(movie:Movie){
             tvTitle.text = movie.title
             tvOverView.text = movie.overview
@@ -89,10 +90,12 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
                     .into(ivPoster)
             }
 
+
         }
+
     }
 
-    inner class ViewHolder1(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder1(itemView: View): RecyclerView.ViewHolder(itemView),View.OnClickListener{
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverView = itemView.findViewById<TextView>(R.id.tvOverView)
@@ -115,8 +118,6 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
 
 
         }
-
-
         override fun onClick(p0: View?) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
@@ -160,7 +161,6 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
                 intent.putExtra(
                     MOVIE_EXTRA, movie
                 )
-
                 context.startActivity(intent)
             }
         }
