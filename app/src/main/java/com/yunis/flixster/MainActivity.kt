@@ -1,5 +1,7 @@
 package com.yunis.flixster
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,18 +15,11 @@ import org.json.JSONException
 
 
 private const val TAG = "MainActivity"
-private const val NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+
 class MainActivity : AppCompatActivity() {
 
     private val movies = mutableListOf<Movie>()
     private lateinit var rvMovies: RecyclerView
-
-//    1. Define a model class to use as the data source - DONE
-//    2. Add a RecyclerView to your activity to display the items - DONE
-//    3. Create a custom row layout XML file to visualize the item - DONE
-//    4. Create a RecyclerView.Adapter and ViewHolder to render the item - DONE
-//    5. Bind the adapter to the data source to populate the RecyclerView - DONE
-//    6. Bind a layout manager to the recyclerview - DONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +32,12 @@ class MainActivity : AppCompatActivity() {
         rvMovies.layoutManager = LinearLayoutManager(this)
 
         val client = AsyncHttpClient()
+
+        val ai: ApplicationInfo = applicationContext?.packageManager
+            ?.getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)!!
+        val value = ai.metaData["keyMovieValue"]
+        val key = value.toString()
+         val NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=${key}"
         client.get(NOW_PLAYING_URL, object: JsonHttpResponseHandler() {
             override fun onFailure(
                 statusCode: Int,
