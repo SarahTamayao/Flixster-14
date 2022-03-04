@@ -10,6 +10,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import android.app.Activity
+
+import androidx.core.app.ActivityOptionsCompat
+
+import com.google.android.youtube.player.internal.m
+
+
+
 
 const val MOVIE_EXTRA = "MOVIE_EXTRA"
 class MovieAdapter(private val context: Context, private val movies: List<Movie> )
@@ -128,8 +136,10 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
                 intent.putExtra(
                     MOVIE_EXTRA, movie
                 )
-
-                context.startActivity(intent)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (context as Activity), ivPoster, "poster"
+                )
+                context.startActivity(intent, options.toBundle())
             }
         }
     }
@@ -161,7 +171,10 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
                 intent.putExtra(
                     MOVIE_EXTRA, movie
                 )
-                context.startActivity(intent)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (context as Activity), ivPoster, "poster"
+                )
+                context.startActivity(intent, options.toBundle())
             }
         }
     }
