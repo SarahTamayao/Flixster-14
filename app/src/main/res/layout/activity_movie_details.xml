@@ -43,12 +43,5 @@
         android:isIndicator="true"
         android:stepSize="0.5" />
 
-    <ImageView
-        android:id="@+id/ivPoster"
-        android:layout_width="312dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:visibility="gone"
-        tools:src="@tools:sample/avatars" />
 
 </LinearLayout>
