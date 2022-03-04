@@ -15,30 +15,21 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        val movie = intent.getParcelableExtra<Movie>(MOVIE_EXTRA) as Movie
 
-        var voteAverage: Float? = intent.extras?.getDouble(MovieAdapter.RB)?.toFloat()
-
-        if (voteAverage != null) {
-            (if (voteAverage > 0) voteAverage / 2.0f else voteAverage.also {
-                voteAverage = it
-            }).let {
-                binding.rbVoteAverage.rating = it
-            }
-        }
-
-        binding.tvTitle.text = intent.getStringExtra(MovieAdapter.ITEM_TITLE)
-
-        binding.tvOverView.text = intent.getStringExtra(MovieAdapter.ITEM_OVERVIEW)
+        binding.rbVoteAverage.rating = movie.voteAverage.toFloat()
+        binding.tvTitle.text = movie.title
+        binding.tvOverView.text = movie.overview
 
 
         if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(applicationContext)
-                .load(intent.getStringExtra(MovieAdapter.ITEM_POSTER))
+                .load(intent.getStringExtra(movie.posterImageUrl))
                 .placeholder(R.drawable.flicks_movie_placeholder)
                 .into(binding.ivPoster)
         } else {
             Glide.with(applicationContext)
-                .load(intent.getStringExtra(MovieAdapter.ITEM_POSTER2))
+                .load(intent.getStringExtra(movie.posterImageUrl2))
                 .placeholder(R.drawable.flicks_backdrop_placeholder)
                 .into(binding.ivPoster)
         }

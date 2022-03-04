@@ -1,7 +1,11 @@
 package com.yunis.flixster
 
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import org.json.JSONArray
 
+@Parcelize
 data class Movie(
     val movieId: Int,
     private val posterPath: String,
@@ -9,8 +13,10 @@ data class Movie(
     val voteAverage: Double,
     val title: String,
     val overview: String
-) {
+) :Parcelable {
+    @IgnoredOnParcel
     val posterImageUrl = "https://image.tmdb.org/t/p/w342/$posterPath"
+    @IgnoredOnParcel
     val posterImageUrl2 = "https://image.tmdb.org/t/p/w300/$backDropPath"
 
     companion object {
