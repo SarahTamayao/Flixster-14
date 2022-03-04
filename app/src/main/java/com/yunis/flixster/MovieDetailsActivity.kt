@@ -28,6 +28,7 @@ class MovieDetailsActivity : YouTubeBaseActivity() {
         binding.tvTitle.text = movie.title
         binding.tvOverView.text = movie.overview
 
+
         val client = AsyncHttpClient()
 
         val ai:ApplicationInfo = applicationContext?.packageManager
@@ -58,6 +59,8 @@ class MovieDetailsActivity : YouTubeBaseActivity() {
                 val movieTrailerJson = results.getJSONObject(0)
                 val youtubeKey = movieTrailerJson.getString("key")
                 initializeYoutube(youtubeKey)
+
+
             }
         })
 
@@ -81,8 +84,15 @@ class MovieDetailsActivity : YouTubeBaseActivity() {
                 player: YouTubePlayer?,
                 p2: Boolean
             ) {
+                val movie = intent.getParcelableExtra<Movie>(MOVIE_EXTRA) as Movie
+
+                if(movie.voteAverage > 5.0){
+                    player?.loadVideo(youtubeKey)
+                } else {
+                    player?.cueVideo(youtubeKey)
+
+                }
                 Log.i(TAG,"onInitializationSuccess")
-                player?.cueVideo(youtubeKey);
 
             }
 
