@@ -1,4 +1,5 @@
 package com.yunis.flixster
+import android.R.attr
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,6 +16,12 @@ import android.app.Activity
 import androidx.core.app.ActivityOptionsCompat
 
 import com.google.android.youtube.player.internal.m
+import android.R.attr.radius
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+
+
+
 
 
 
@@ -121,6 +128,8 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             }
             Glide.with(context)
                 .load(movie.posterImageUrl2)
+                .centerCrop()
+                .transform(RoundedCornersTransformation(50, 10))
                 .placeholder(R.drawable.flicks_backdrop_placeholder)
                 .into(ivPoster)
 
@@ -157,6 +166,8 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             tvOverView.text = movie.overview
             Glide.with(context)
                 .load(movie.posterImageUrl)
+                .centerCrop()
+                .transform(RoundedCornersTransformation(100, 10))
                 .placeholder(R.drawable.flicks_movie_placeholder)
                 .into(ivPoster)
         }
