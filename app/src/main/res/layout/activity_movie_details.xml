@@ -25,15 +25,6 @@
         android:textColor="@color/black"
        />
 
-    <TextView
-        android:id="@+id/tvOverView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/black" />
-
     <RatingBar
         android:id="@+id/rbVoteAverage"
         style="@style/Widget.AppCompat.RatingBar.Indicator"
@@ -46,12 +37,13 @@
         android:isIndicator="true"
         android:stepSize="0.5" />
 
-    <ImageView
-        android:id="@+id/ivProfile"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:scaleType="centerCrop"
-        android:transitionName="profile" />
-
+    <TextView
+        android:id="@+id/tvOverView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="@color/black" />
 
 </LinearLayout>
